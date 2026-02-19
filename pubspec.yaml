@@ -6,6 +6,7 @@ version: 3.6.2
 platforms:
   android:
   ios:
+  linux:
   macos:
   windows:
   web:
