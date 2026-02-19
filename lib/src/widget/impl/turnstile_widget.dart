@@ -663,28 +663,31 @@ class _CloudflareTurnstileState extends State<CloudflareTurnstile> {
     final turnstileWidget = Visibility(
       visible: _hasError == null || isErrorResolvable,
       maintainState: true,
-      child: AnimatedContainer(
+      child: AnimatedOpacity(
         duration: widget.options.animationDuration!,
-        width: _isWidgetReady ? widget.options.size.width : 0,
-        height: _isWidgetReady ? widget.options.size.height : 0,
         curve: widget.options.curves!,
-        decoration: BoxDecoration(
-          color: primaryColor,
-          borderRadius: widget.options.borderRadius,
-        ),
-        foregroundDecoration: BoxDecoration(
-          border: Border.all(color: adaptiveBorderColor),
-          borderRadius: widget.options.borderRadius,
-        ),
-        child: ClipRRect(
-          clipBehavior: Clip.hardEdge,
-          borderRadius: widget.options.borderRadius!.add(
-            // add extra 1 px because border
-            const BorderRadius.all(
-              Radius.circular(1),
-            ),
+        opacity: _isWidgetReady ? 1.0 : 0.0,
+        child: Container(
+          width: widget.options.size.width,
+          height: widget.options.size.height,
+          decoration: BoxDecoration(
+            color: primaryColor,
+            borderRadius: widget.options.borderRadius,
           ),
-          child: _view,
+          foregroundDecoration: BoxDecoration(
+            border: Border.all(color: adaptiveBorderColor),
+            borderRadius: widget.options.borderRadius,
+          ),
+          child: ClipRRect(
+            clipBehavior: Clip.hardEdge,
+            borderRadius: widget.options.borderRadius!.add(
+              // add extra 1 px because border
+              const BorderRadius.all(
+                Radius.circular(1),
+              ),
+            ),
+            child: _view,
+          ),
         ),
       ),
     );
